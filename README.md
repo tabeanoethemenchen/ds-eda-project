@@ -3,38 +3,15 @@
 Template for creating ds simple projects
 
 ## Requirements
+For installation of the the virtual environment, run:
 
-- pyenv
-- python==3.11.3
-
-## Setup
-
-One of the first steps when starting any data science project is to create a virtual environment. For this project you have to create this environment from scratch yourself. However, you should be already familiar with the commands you will need to do so. The general workflow consists of... 
-
-* setting the python version locally to 3.11.3
-* creating a virtual environment using the `venv` module
-* activating your newly created environment 
-* upgrading `pip` (This step is not absolutely necessary, but will save you trouble when installing some packages.)
-* installing the required packages via `pip`
-
-At the end, you want to make sure that people who are interested in your project can create an identical environment on their own computer in order to be able to run your code without running into errors. Therefore you can create a `requirements file` and add it to your repository. You can create such a file by running the following command: 
-
-```bash
-pip freeze > requirements.txt
 ```
-
-*Note: In rare case such a requirements file created with `pip freeze` might not ensure that another (especially M1 chip) user can install and execute it properly. This can happen if libraries need to be compiled (e.g. SciPy). Then it also depends on environment variables and the actual system libraries.*
-
-### Unit testing (Optional)
-
-If you write python scripts for your data processing methods, you can also write unit tests. In order to run the tests execute in terminal:
-
-```bash
-pytest
+pyenv local 3.11.3
+python -m venv .venv
+source .venv/bin/activate
+pip install --upgrade pip
+pip install -r requirements.txt
 ```
-
-This command will execute all the functions in your project that start with the word **test**.
-
 
 ### Environment
 
@@ -44,13 +21,42 @@ This repo contains a requirements.txt file with a list of all the packages and d
 brew update
 brew install postgresql
 ```
+### Task 
+### Introduction to topic and task
+The aim of this project is to familiarize with the EDA (Exploratory Data Analysis) part of the Data Science cycle.
+For this purpose, several **steps** will be followed
+- fetching data from a database
+- data cleaning
+- Getting an general overview
+- explore correlations of data
+- plotting different data points and correlations
+- coming up with suggestions to the stakeholder
 
-In order to install the environment you can use the following commands:
+We work on the King County Dataset of houses and sales and we take on the role of a real estate marketer who wants to broker a property to client **Larry Sanders**.
+The client has the following **requirements** for his new home:
+- it should be located on the water
+- Larry has a limited budget available
+- the house should be in a nice condition
+- the house should be located rather isolated
+- no children should live in the immediate neighborhood, because Larry is afraid of germs
+- he himself has some children
 
-```
-pyenv local 3.11.3
-python -m venv .venv
-source .venv/bin/activate
-pip install --upgrade pip
-pip install -r requirements.txt
-```
+During the notebook the following **assumptions** were made
+- Larry has at least 2 children
+- a 'nice' condition refers to the objects with a `condition` of 4 or 5
+- most people would like to have a bedroom for each of their kids; thus Larry would like to have at least 3 bedrooms (one for his own and one for each of his at least 2 kids). In addition, he wants his neighbors to have as little bedrooms as possible (because than it's more likely, that they don't have any kids)
+- a house is isolated, when the distance to the neighbors is high; re, the average size of neighboring plots or/and the size of one's own plot can be used as an indicator
+
+In addition, we will address some **general questions**:
+- how does the location at the waterfront influence the price?
+- is the number of bedrooms associated with the size of the property?
+- does the condition of the property influence it's price?
+
+
+### Procedure
+1. export of data from postgreSQL database
+2. first exploration of data content (dimensions of table, columnames etc. (more details to colum names: `column_names.md)...)
+3. exploration of correlations
+4. reducing the number of properties due to the requirements of the client
+5. analysing the **general questions** above
+6. coming up with 3 suggestions for the client
